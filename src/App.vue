@@ -8,8 +8,25 @@
     <a v-if="isIf">条件渲染v-if</a>
     <a v-else>no data</a>
     <!-- <a v-show="!isIf">条件渲染v-show</a> -->
-    <button v-on:click="toggle">toggle</button>
+    <button @click="toggle">toggle</button>
     <button v-on:click="addItem">addItem</button>
+    <input @keydown.enter="onKeyDown">
+    <componentA @my-event="onComaMyEvent"></componentA>
+    <input v-model.trim="myValue" type="text">
+    {{myValue}}
+    <input type="checkbox" v-model="myBox" value="apple">
+    <input type="checkbox" v-model="myBox" value="banana">
+    <input type="checkbox" v-model="myBox" value="pinapple">
+    {{myBox}}
+    <!-- <select v-model="selection">
+      <option value="1">1</option>
+      <option value="2">2</option>
+    </select> -->
+    {{selection}}
+    <select v-model="selection">
+      <option v-for='item in selectOption' :value="item.value">{{ item.text }}</option>
+    </select>
+
   </div>
 </template>
 
@@ -22,6 +39,19 @@ export default {
   },
   data () {
     return {
+      selectOption: [
+        {
+          text: 'apple',
+          value: 0
+        },
+        {
+          text: 'banana',
+          value: 1
+        }
+      ],
+      selection: null,
+      myBox: [],
+      myValue: '',
       hello: '<sapn>world</sapn>',
       link: 'http://www.baidu.com',
       dataA: 12,
@@ -59,7 +89,7 @@ export default {
     }
   },
   methods: {
-    addItem: function () {
+    addItem () {
       // this.list.push({
       //   name: 'pinapple',
       //   price: 55
@@ -71,6 +101,12 @@ export default {
     },
     toggle () {
       this.isIf = !this.isIf
+    },
+    onKeyDown () {
+      console.log('on key down')
+    },
+    onComaMyEvent (parmfromA) {
+      console.log('onComaMyEvent' + parmfromA)
     }
   }
 }
